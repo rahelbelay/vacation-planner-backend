@@ -135,8 +135,17 @@ app.get('/api/my-trips', requireLogin, async (req, res) => {
 
 });
 
+app.get('/api/trip-detail/:id(\\d+)', requireLogin, async (req, res) => {
+    console.log(req)
+    const id = req.params.id
+    const eachTrip = await trip.getTrip(id);
+    res.json({
+        result: eachTrip
+    });
+});
+
 app.get('/api/trip-detail', requireLogin, async (req, res) => {
-    const id = req.session.users.id
+    const id = req.session.trips.id
     const eachTrip = await trip.getTrip(id);
     res.json({
         result: eachTrip
