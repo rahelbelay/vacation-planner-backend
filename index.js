@@ -136,7 +136,7 @@ app.get('/api/my-trips', requireLogin, async (req, res) => {
 });
 
 app.get('/api/trip-detail/:id(\\d+)', requireLogin, async (req, res) => {
-    console.log(req)
+    // console.log(req)
     const id = req.params.id
     const eachTrip = await trip.getTrip(id);
     res.json({
