@@ -14,13 +14,11 @@ values
     ( 'lilburn',5, 2 )
     ;
     
-insert into categories
-    ( category, rating, user_id )
+insert into saved_places
+    ( name, type,latitude,longitude, trip_id )
 values
-    ( 'movie_theater', 4, 4 ),  
-    ( 'park', 3, 1 ),  
-    ( 'book_store', 5, 2 ),  
-    ( 'restaurant', 5, 1 ) 
+    ( 'paris', 'resturant', 30.77, 49.08, 1 ),  
+    ( 'london','park', 39.02,90.43, 1 ) 
     ;
     
 

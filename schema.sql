@@ -10,13 +10,18 @@ create table trips (
     id serial primary key,
     location text,  
     day text,
+    lat text,
+    long text,
     user_id integer references users (id)
 )
 ;
-create table categories (
+create table saved_places (
     id serial primary key,
-    category text,
-    rating text,
-    user_id integer references users (id)
+    name text,
+    type text,
+    latitude decimal,
+    longitude decimal,
+    trip_id integer references trips (id)
 )
 ;
+

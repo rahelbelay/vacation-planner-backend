@@ -12,6 +12,7 @@ const user = require('./models/user')
 const FileStore = require('session-file-store')(session);
 const cors = require("cors");
 const trip = require('./models/trip')
+const place = require('./models/place')
 app.use(cors({
     origin: ['*'],
     methods: ['*'],
@@ -114,11 +115,11 @@ app.get('/logout', (req, res) => {
 // Trips
 
 app.post('/api/create/trip', requireLogin, parseJson, async (req, res) => {
-    const { location, day } = req.body;
+    const { location, day, lat, long } = req.body;
     console.log('creating trip');
     console.log(req.body)
     const user_id = req.session.users.id;
-    const newTripId = await trip.createTrip(location, day, user_id);
+    const newTripId = await trip.createTrip(location, day, lat, long, user_id);
     console.log(newTripId)
     res.json({
         success: true
@@ -144,6 +145,7 @@ app.get('/api/trip-detail/:id(\\d+)', requireLogin, async (req, res) => {
     });
 });
 
+
 app.get('/api/trip-detail', requireLogin, async (req, res) => {
     const id = req.session.trips.id
     const eachTrip = await trip.getTrip(id);
@@ -151,6 +153,37 @@ app.get('/api/trip-detail', requireLogin, async (req, res) => {
         result: eachTrip
     });
 
+});
+
+// places
+
+app.post('/api/create/places', requireLogin, parseJson, async (req, res) => {
+    const { name, type, latitude, longitude, tripId } = req.body;
+    console.log('creating place');
+    console.log(req.body)
+    const newPlaceId = await place.createPlace(name, type, latitude, longitude, tripId);
+    console.log(newPlaceId)
+    res.json({
+        newPlaceId,
+        success: true
+    });
+});
+
+app.delete('/api/saved-places/:saved_place_id(\\d+)', requireLogin, async (req, res) => {
+    const { saved_place_id } = req.params;
+    const deletedRows = await place.deletePlaceById(saved_place_id)
+    res.json({
+        deletedRows,
+        success: true
+    });
+});
+
+app.get('/api/saved-places-detail/:trip_id(\\d+)', requireLogin, async (req, res) => {
+    const trip_id = req.params.trip_id
+    const eachSavedPlace = await place.getAllSavedPlacedByTripId(trip_id);
+    res.json({
+        result: eachSavedPlace
+    });
 });
 
 app.get('*', (req, res) => {

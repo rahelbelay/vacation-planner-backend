@@ -33,14 +33,14 @@ async function getAllTripsByUserId(userId) {
 }
 
 
-async function createTrip(location, day, user_id) {
+async function createTrip(location, day, lat, long, user_id) {
     const result = await db.one(`
 insert into trips
-    (location, day, user_id)
+    (location, day, lat, long, user_id)
 values
-    ($1, $2, $3)    
+    ($1, $2, $3, $4, $5)    
 returning id
-    `, [location, day, user_id]);
+    `, [location, day, lat, long, user_id]);
 
     return result.id;
 };
