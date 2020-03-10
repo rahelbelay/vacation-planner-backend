@@ -12,6 +12,7 @@ create table trips (
     day text,
     lat text,
     long text,
+    picture_url text,
     user_id integer references users (id)
 )
 ;
@@ -21,6 +22,7 @@ create table saved_places (
     type text,
     latitude decimal,
     longitude decimal,
+    picture_url text,
     trip_id integer references trips (id)
 )
 ;

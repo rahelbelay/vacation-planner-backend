@@ -115,11 +115,11 @@ app.get('/logout', (req, res) => {
 // Trips
 
 app.post('/api/create/trip', requireLogin, parseJson, async (req, res) => {
-    const { location, day, lat, long } = req.body;
+    const { location, day, lat, long, pictureUrl } = req.body;
     console.log('creating trip');
     console.log(req.body)
     const user_id = req.session.users.id;
-    const newTripId = await trip.createTrip(location, day, lat, long, user_id);
+    const newTripId = await trip.createTrip(location, day, lat, long, pictureUrl, user_id);
     console.log(newTripId)
     res.json({
         success: true
@@ -158,10 +158,10 @@ app.get('/api/trip-detail', requireLogin, async (req, res) => {
 // places
 
 app.post('/api/create/places', requireLogin, parseJson, async (req, res) => {
-    const { name, type, latitude, longitude, tripId } = req.body;
+    const { name, type, latitude, longitude, pictureUrl, tripId } = req.body;
     console.log('creating place');
     console.log(req.body)
-    const newPlaceId = await place.createPlace(name, type, latitude, longitude, tripId);
+    const newPlaceId = await place.createPlace(name, type, latitude, longitude, pictureUrl, tripId);
     console.log(newPlaceId)
     res.json({
         newPlaceId,
