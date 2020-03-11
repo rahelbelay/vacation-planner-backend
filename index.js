@@ -186,10 +186,15 @@ app.get('/api/saved-places-detail/:trip_id(\\d+)', requireLogin, async (req, res
     });
 });
 
+// app.get('*', (req, res) => {
+//     console.log("Redirecting, because no page here.");
+//     res.redirect('/home');
+// })
+
+// Handles any requests that don't match previous ones
 app.get('*', (req, res) => {
-    console.log("Redirecting, because no page here.");
-    res.redirect('/home');
-})
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+});
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
