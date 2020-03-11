@@ -11,7 +11,7 @@ insert into trips
     (location,  day,  user_id )
 values
     ( 'hudsonc-rossing', 5, 3 ),  
-    ( 'lilburn',5, 2 ),
+    ( 'lilburn',5, 2 )
     ;
     
 insert into saved_places
