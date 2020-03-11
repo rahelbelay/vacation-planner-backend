@@ -13,6 +13,7 @@ const FileStore = require('session-file-store')(session);
 const cors = require("cors");
 const trip = require('./models/trip')
 const place = require('./models/place')
+const path = require('path')
 app.use(cors({
     origin: ['*'],
     methods: ['*'],
